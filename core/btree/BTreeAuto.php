@@ -4,7 +4,7 @@
  * Class CreatorBTree
  * класс родитель для формирование дерева
  */
-class Tree
+class BTreeAuto
 {
     private $countNode = 0;
 

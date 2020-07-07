@@ -40,26 +40,23 @@ class BTreeService
     /**
      * @param $node
      * @param \Tightenco\Collect\Support\Collection $bTree
+     * @param $level
+     * @param $path
+     * @param $editedNode
+     * @param $childLevel
      */
-    public static function getInfoAboutNode($node, $bTree, $level, $path, &$editedNode)
+    public static function setPathNode($node, $bTree, $level, $path, &$editedNode, $childLevel)
     {
         $level += 1;
         $path[] = $node->id;
         //проверяем есть ли у узла родитель
         if ($node->parent_id) {
-            if ($node->position == 1) {
-                $parentNode = $bTree->where('id', $node->parent_id)->where('left', $node->id)
-                    ->first();
-                self::getInfoAboutNode($parentNode, $bTree, $level, $path, $editedNode);
-            } elseif ($node->position == 2) {
-                $parentNode = $bTree->where('id', $node->parent_id)->where('right', $node->id)
-                    ->first();
-                self::getInfoAboutNode($parentNode, $bTree, $level, $path, $editedNode);
-            }
-        }else{
-            $editedNode->setLevel($level);
+            $parentNode = $bTree->where('id', $node->parent_id)
+                ->where('level', '=', $childLevel - 1)
+                ->first();
+            self::setPathNode($parentNode, $bTree, $level, $path, $editedNode, $childLevel - 1);
+        } else {
             $editedNode->setPath(implode('.', array_reverse($path)));
         }
-//        return ['path' => implode('.', array_reverse(self::$path)), 'level' => self::$level];
     }
 }

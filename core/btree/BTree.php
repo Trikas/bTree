@@ -4,7 +4,7 @@
  * Class BTree
  * Class for build tree
  */
-class BTree extends Tree
+class BTree extends BTreeAuto
 {
     private $parentId;
     private $position;
@@ -101,8 +101,8 @@ class BTree extends Tree
      */
     private function createNode($node, $id, $position)
     {
-        $currentNode = new BTreeNode($id, $node->id, 0, 0, $position);
-        BTreeService::getInfoAboutNode($currentNode, $this->getBtree(), 0, [], $currentNode);
+        $currentNode = new BTreeNode($id, $node->id, 0, $node->level + 1, $position);
+        BTreeService::setPathNode($currentNode, $this->getBtree(), 0, [], $currentNode, $currentNode->level);
         $this->btree[] = $currentNode;
     }
 
@@ -117,7 +117,7 @@ class BTree extends Tree
         $rootNode = $this->getBtree()->first();
         $arrayIndexes = range(1, 10);
         foreach ($arrayIndexes as $arrayIndex) {
-            $this->addNode(rand(1, 50), $rootNode);
+            $this->addNode(rand(1, 20), $rootNode);
         }
     }
 }
