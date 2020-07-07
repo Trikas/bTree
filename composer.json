@@ -1,5 +1,6 @@
 {
     "require": {
-        "tightenco/collect": "^7.12"
+        "tightenco/collect": "^7.12",
+        "illuminate/database": "^7.19"
     }
 }

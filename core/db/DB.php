@@ -1,22 +1,35 @@
 <?php
+require_once($_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php');
+use Illuminate\Database\Capsule\Manager as Capsule;
+use Illuminate\Container\Container;
 
-
-class DB
-{
-    public $pdo;
-
+class DB{
     public function __construct()
     {
-        //чтобы массив был ассоциативным
-        $opt = array(
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-        );
-        $this->pdo = new PDO('mysql:host=localhost; dbname=btree', 'homestead', 'secret', $opt);
+        $this->initDb();
     }
 
-    public function getRow()
+    public function initDb()
     {
-        return $this->pdo->query('SELECT btree.btree_data.id from btree.btree_data');
+        $capsule = new Capsule;
+
+        $capsule->addConnection([
+            'driver'    => 'mysql',
+            'host'      => 'localhost',
+            'database'  => 'btree',
+            'username'  => 'homestead',
+            'password'  => 'secret',
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+        ]);
+
+
+
+        $capsule->setAsGlobal();
+
+// Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
+        $capsule->bootEloquent();
     }
 }
+

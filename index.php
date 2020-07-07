@@ -1,7 +1,7 @@
 <?php
 //add autoload script
 require_once($_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php');
-$x = new DB();
+require_once($_SERVER['DOCUMENT_ROOT'] . '/inc/autoload.php');
 ?>
 <form action="/create_tree.php" method="post">
     <input type="number" name="parent_id" placeholder="Введите id родителя" required> Любое число кроме 0<br><br>

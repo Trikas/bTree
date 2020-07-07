@@ -51,7 +51,8 @@ class BTreeService
         $path[] = $node->id;
         //проверяем есть ли у узла родитель
         if ($node->parent_id) {
-            $parentNode = $bTree->where('id', $node->parent_id)
+            $parentNode = $bTree
+                ->where('id', $node->parent_id)
                 ->where('level', '=', $childLevel - 1)
                 ->first();
             self::setPathNode($parentNode, $bTree, $level, $path, $editedNode, $childLevel - 1);

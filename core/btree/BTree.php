@@ -4,7 +4,7 @@
  * Class BTree
  * Class for build tree
  */
-class BTree extends BTreeAuto
+class BTree
 {
     private $parentId;
     private $position;
