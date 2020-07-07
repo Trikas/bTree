@@ -12,7 +12,6 @@ class BTree extends Tree
     const POSITION_RIGHT = 2;
     /**
      * массив со всеми узлами (по факту можно сразу в бд писать но это тяжело дебажить)
-     *
      */
     //TODO запись в бд после заполнения массива узлами
     private $btree = array();
@@ -74,11 +73,12 @@ class BTree extends Tree
     public function addNode($id, $node)
     {
         //если у текущего узла значение меньше чем у наследника проверяем есть ли в это секции наследник
-        if ($node->id <=$id) {
+        if ($node->id <= $id) {
             $nodeRight = $node->getRightNode($this->getBtree());
             if ($nodeRight) {
                 $this->addNode($id, $nodeRight);
             } else {
+                $node->right = $id;
                 $this->createNode($node, $id, self::POSITION_RIGHT);
             }
             //есть ли у текущего узла
@@ -87,7 +87,7 @@ class BTree extends Tree
             if ($nodeLeft) {
                 $this->addNode($id, $nodeLeft);
             } else {
-                $node->setChildNode($id);
+                $node->left = $id;
                 $this->createNode($node, $id, self::POSITION_LEFT);
             }
         }
@@ -97,19 +97,27 @@ class BTree extends Tree
      * @param $node
      * @param $id
      * @param $position
-     * Разшиение метода addMode для исправления дублирования
+     * Разшиение метода addNode для исправления дублирования
      */
     private function createNode($node, $id, $position)
     {
-        $currentNode = new BTreeNode($id, $node->id, 0,0, $position);
-        $dataAboutNode = BTreeService::getInfoAboutNode($currentNode, $this->getBtree());
-        $currentNode->setLevel($dataAboutNode['level']);
-        $currentNode->setPath($dataAboutNode['path']);
+        $currentNode = new BTreeNode($id, $node->id, 0, 0, $position);
+        BTreeService::getInfoAboutNode($currentNode, $this->getBtree(), 0, [], $currentNode);
         $this->btree[] = $currentNode;
     }
 
     public function getBtree()
     {
         return collect($this->btree);
+    }
+
+    public function createRandBtree()
+    {
+        //первый едемент колекции является root
+        $rootNode = $this->getBtree()->first();
+        $arrayIndexes = range(1, 10);
+        foreach ($arrayIndexes as $arrayIndex) {
+            $this->addNode(rand(1, 50), $rootNode);
+        }
     }
 }
