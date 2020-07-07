@@ -14,17 +14,15 @@ class DB{
         $capsule = new Capsule;
 
         $capsule->addConnection([
-            'driver'    => 'mysql',
-            'host'      => 'localhost',
-            'database'  => 'btree',
-            'username'  => 'homestead',
-            'password'  => 'secret',
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
+            'driver'    => DRIVER,
+            'host'      => HOST,
+            'database'  => DB_NAME,
+            'username'  => USERNAME,
+            'password'  => PASS,
+            'charset'   => CHARSET,
+            'collation' => COLLATION,
             'prefix'    => '',
         ]);
-
-
 
         $capsule->setAsGlobal();
 
