@@ -19,6 +19,7 @@ class Tree
     {
         //если у текущего узла значение меньше чем у наследника проверяем есть ли в это секции наследник
         if ($node->id <= $id) {
+            $x = $node->level;
             $nodeRight = $node->getRightNode($this->getBtree());
             if ($nodeRight) {
                 $this->addNode($id, $nodeRight);
@@ -62,7 +63,7 @@ class Tree
      */
     public function addRootNode($currentId, $idNode)
     {
-        $rootNode = new BTreeNode($currentId, 0, 0, 1, 0);
+        $rootNode = new BTreeNode($currentId, 0, $currentId, 1, 0);
         $rootNode->setChildNode($idNode);
         return $rootNode;
     }
@@ -74,11 +75,6 @@ class Tree
 
     public function InitRootNode()
     {
-        if (!$rootNode = $this->getBtree()->first()) {
-            $rootNode = $this->addRootNode(2, 3);
-            $this->btree[] = $rootNode;
-        } else {
-            $this->btree[] = $rootNode;
-        }
+        $this->btree[] = $this->addRootNode(rand(10, 30), null);
     }
 }

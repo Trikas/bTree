@@ -1,6 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/inc/autoload.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/bootstrap.php');
 if ($_POST['parent_id'] && $_POST['position']) {
     try {
         $db = new DB();

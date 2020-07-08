@@ -55,7 +55,7 @@ class BTreeService
         $level += 1;
         $path[] = $node->id;
         //проверяем есть ли у узла родитель
-        if ($node->parent_id) {
+        if (isset($node->parent_id) && $node->level != 1) {
             $parentNode = $bTree
                 ->where('id', $node->parent_id)
                 ->where('level', '=', $childLevel - 1)
@@ -70,7 +70,7 @@ class BTreeService
     {
         $bTreeCollect = BTreeModel::all();
         if ($bTreeCollect->isNotEmpty()) {
-            $nodesForDelete = $bTreeCollect->where('level','>', 5)->pluck('id');
+            $nodesForDelete = $bTreeCollect->where('level', '>', 5)->pluck('id');
             BTreeModel::destroy($nodesForDelete);
         }
     }
