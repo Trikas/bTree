@@ -74,4 +74,12 @@ class BTreeService
             BTreeModel::destroy($nodesForDelete);
         }
     }
+
+    public static function setUidNodes($bTree)
+    {
+        foreach ($bTree as $key => $node){
+            $node->uid = $key;
+        }
+    }
+
 }

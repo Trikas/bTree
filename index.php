@@ -19,5 +19,7 @@ $xx = $res;
 <h3> #2.1</h3>
 <a href="/create_uniform_bTree.php">Сформировать дерево в 5 уровней</a>
 
-<form action=""></form>
+<form action="/searchPlaceNode.php">
+
+</form>
 

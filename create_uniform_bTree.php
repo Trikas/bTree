@@ -7,6 +7,7 @@ try {
     $uniformBTree = new UniformBTree();
     $uniformBTree->InitRootNode();
     $uniformBTree->initCreateUniformBTree();
+    BTreeService::setUidNodes($uniformBTree->getBtree());
     BTreeModel::saveNodes($uniformBTree->getBtree());
     echo 'Дерево сохранено в базу данных';
     ?><br><a href="/">Вернуться на главную</a>

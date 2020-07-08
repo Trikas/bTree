@@ -4,6 +4,7 @@
 class BTreeNode
 {
     //Инициализируем поля узла дерева
+    //значение ячейки
     public $id;
     public $parent_id;
     public $path;
@@ -15,6 +16,8 @@ class BTreeNode
     public $left;
     //указатель id справа значение наследника больше 2
     public $right;
+    //уникальный идентификатор ячейки
+    public $uid;
 
 
     /**

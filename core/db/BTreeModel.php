@@ -8,9 +8,10 @@ class BTreeModel extends \Illuminate\Database\Eloquent\Model
     public $timestamps = false;
     public static function saveNodes($nodes)
     {
-        //чтобы не убивать базу
+        //чтобы не убивать базу удаление всех старых елементов
         $nodesOld = self::all()->pluck('id');
         self::destroy($nodesOld);
+        //запись в базу
         foreach ($nodes as $node){
             self::create([
                 'id' => $node->id,
@@ -20,6 +21,7 @@ class BTreeModel extends \Illuminate\Database\Eloquent\Model
                 'level' => $node->level,
                 'left' => $node->left,
                 'right' => $node->right,
+                'uid' => $node->uid
             ]);
         }
     }

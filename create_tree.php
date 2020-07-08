@@ -8,6 +8,7 @@ if ($_POST['parent_id'] && $_POST['position']) {
         //создаем начальное состояние дерева
         $bTree->addMajorStructure();
         $bTree->createRandBtree();
+        BTreeService::setUidNodes($bTree->getBtree());
         BTreeModel::saveNodes($bTree->getBtree());
         echo 'Дерево сохранено в базу данных';?>
         <br><a href="/">Вернуться на главную</a>
