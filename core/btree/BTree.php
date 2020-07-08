@@ -81,7 +81,6 @@ class BTree
                 $node->right = $id;
                 $this->createNode($node, $id, self::POSITION_RIGHT);
             }
-            //есть ли у текущего узла
         } elseif ($node->id > $id) {
             $nodeLeft = $node->getLeftNode($this->getBtree());
             if ($nodeLeft) {
@@ -97,7 +96,7 @@ class BTree
      * @param $node
      * @param $id
      * @param $position
-     * Разшиение метода addNode для исправления дублирования
+     * Разширение метода addNode для исправления дублирования
      */
     private function createNode($node, $id, $position)
     {

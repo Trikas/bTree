@@ -47,6 +47,10 @@ class BTreeNode
         }
     }
 
+    /**
+     * @param $bTree
+     * @return null
+     */
     public function getLeftNode($bTree)
     {
         if ($this->left) {
@@ -61,6 +65,10 @@ class BTreeNode
         return null;
     }
 
+    /**
+     * @param $bTree
+     * @return null
+     */
     public function getRightNode($bTree)
     {
         if ($this->right) {

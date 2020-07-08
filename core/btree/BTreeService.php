@@ -23,6 +23,9 @@ class BTreeService
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public static function validatePosition()
     {
         if (($_POST['position'] <= 2) == false) {
@@ -30,6 +33,9 @@ class BTreeService
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public static function validateParentNode()
     {
         if ($_POST['parent_id'] == 0) {
