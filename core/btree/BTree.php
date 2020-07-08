@@ -4,17 +4,12 @@
  * Class BTree
  * Class for build tree
  */
-class BTree
+class BTree extends Tree
 {
     private $parentId;
     private $position;
-    const POSITION_LEFT = 1;
-    const POSITION_RIGHT = 2;
-    /**
-     * массив со всеми узлами (по факту можно сразу в бд писать но это тяжело дебажить)
-     */
-    //TODO запись в бд после заполнения массива узлами
-    private $btree = array();
+
+
     /**
      * указатель на второй уровень вложености
      */
@@ -41,17 +36,7 @@ class BTree
         $this->btree[] = $this->addFirstChild($this->parentId, $this->position, $idNode);
     }
 
-    /**
-     * @param $currentId
-     * @param $idNode
-     * @return BTreeNode
-     */
-    private function addRootNode($currentId, $idNode)
-    {
-        $rootNode = new BTreeNode($currentId, 0, 0, 1, 0);
-        $rootNode->setChildNode($idNode);
-        return $rootNode;
-    }
+
 
     /**
      * @param $parentNodeId
@@ -61,53 +46,8 @@ class BTree
      */
     private function addFirstChild($parentNodeId, $position, $idNode)
     {
-
         $path = $parentNodeId . '.' . $idNode;
         return new BTreeNode($idNode, $parentNodeId, $path, self::SECOND_LVL, $position);
-    }
-
-    /**
-     * @param $id
-     * @param BTreeNode $node
-     */
-    public function addNode($id, $node)
-    {
-        //если у текущего узла значение меньше чем у наследника проверяем есть ли в это секции наследник
-        if ($node->id <= $id) {
-            $nodeRight = $node->getRightNode($this->getBtree());
-            if ($nodeRight) {
-                $this->addNode($id, $nodeRight);
-            } else {
-                $node->right = $id;
-                $this->createNode($node, $id, self::POSITION_RIGHT);
-            }
-        } elseif ($node->id > $id) {
-            $nodeLeft = $node->getLeftNode($this->getBtree());
-            if ($nodeLeft) {
-                $this->addNode($id, $nodeLeft);
-            } else {
-                $node->left = $id;
-                $this->createNode($node, $id, self::POSITION_LEFT);
-            }
-        }
-    }
-
-    /**
-     * @param $node
-     * @param $id
-     * @param $position
-     * Разширение метода addNode для исправления дублирования
-     */
-    private function createNode($node, $id, $position)
-    {
-        $currentNode = new BTreeNode($id, $node->id, 0, $node->level + 1, $position);
-        BTreeService::setPathNode($currentNode, $this->getBtree(), 0, [], $currentNode, $currentNode->level);
-        $this->btree[] = $currentNode;
-    }
-
-    public function getBtree()
-    {
-        return collect($this->btree);
     }
 
     public function createRandBtree()

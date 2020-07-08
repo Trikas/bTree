@@ -1,6 +1,5 @@
 <?php
 
-
 class BTreeService
 {
     public static $level = 0;
@@ -64,6 +63,15 @@ class BTreeService
             self::setPathNode($parentNode, $bTree, $level, $path, $editedNode, $childLevel - 1);
         } else {
             $editedNode->setPath(implode('.', array_reverse($path)));
+        }
+    }
+
+    public static function destroyAllNodesMoreLevelFive()
+    {
+        $bTreeCollect = BTreeModel::all();
+        if ($bTreeCollect->isNotEmpty()) {
+            $nodesForDelete = $bTreeCollect->where('level','>', 5)->pluck('id');
+            BTreeModel::destroy($nodesForDelete);
         }
     }
 }

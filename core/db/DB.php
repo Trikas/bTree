@@ -23,10 +23,7 @@ class DB{
             'collation' => COLLATION,
             'prefix'    => '',
         ]);
-
         $capsule->setAsGlobal();
-
-// Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
         $capsule->bootEloquent();
     }
 }

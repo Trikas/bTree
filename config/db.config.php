@@ -1,8 +1,8 @@
 <?php
-define('DB_NAME', 'btree_data');
+define('DB_NAME', 'btree');
 define('USERNAME', 'homestead');
 define('PASS', 'secret');
 define('DRIVER', 'mysql');
 define('HOST', 'localhost');
-define('CHARSET', 'utf-8');
+define('CHARSET', 'utf8');
 define('COLLATION', 'utf8_unicode_ci');

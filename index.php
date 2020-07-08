@@ -8,3 +8,5 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/inc/autoload.php');
     <input type="number" name="position" placeholder="Введите position наследника" required> 1 или 2<br><br>
     <input type="submit" value="Сформировать">
 </form>
+<a href="/create_uniform_bTree.php">Сформировать дерево в 5 уровней</a>
+

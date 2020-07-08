@@ -50,6 +50,7 @@ class BTreeNode
     /**
      * @param $bTree
      * @return null
+     * метод получения левого дочернего узла
      */
     public function getLeftNode($bTree)
     {
@@ -57,6 +58,7 @@ class BTreeNode
             $result = $bTree
                 ->where('parent_id', $this->id)
                 ->where('id', $this->left)
+                ->where('level', $this->level + 1)
                 ->first();
             if ($result) {
                 return $result;
@@ -68,6 +70,7 @@ class BTreeNode
     /**
      * @param $bTree
      * @return null
+     * метод получения правого дочернего узла
      */
     public function getRightNode($bTree)
     {
@@ -75,6 +78,7 @@ class BTreeNode
             $result = $bTree
                 ->where('parent_id', $this->id)
                 ->where('id', $this->right)
+                ->where('level', $this->level + 1)
                 ->first();
             if ($result) {
                 return $result;
