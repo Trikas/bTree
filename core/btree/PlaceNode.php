@@ -46,11 +46,16 @@ class PlaceNode extends Tree
         }
         $sortedNodes = $collectNodes->filter(function ($item) use ($node) {
             if (isset($item->path_node[$node->valid_level])) {
+                $x = $item->path_node;
+                $x2 = $node->valid_level;
+                $x3 = $node->path_node;
                 return $item->path_node[$node->valid_level] == $node->id;
             }
         });
         $this->searchAllParentNode($node, $node->level, $collectNodes);
-        $this->setResultCollection($sortedNodes->merge($this->parentNodes));
+        $parentNodes = collect($this->parentNodes);
+        $parentNodes = collect($this->parentNodes);
+        $this->setResultCollection(BTreeService::mergeCollect($sortedNodes, $parentNodes));
     }
 
     /**
@@ -70,11 +75,7 @@ class PlaceNode extends Tree
                 ->first();
             $this->parentNodes[] = $parentNode;
             $this->searchAllParentNode($parentNode, $parentNode->level, $collectNodes);
-        } else {
-            $this->parentNodes[] = $node;
         }
-
-
     }
 
     /**

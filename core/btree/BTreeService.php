@@ -82,4 +82,12 @@ class BTreeService
         }
     }
 
+    public static function mergeCollect(\Illuminate\Support\Collection $sortedNodes, \Illuminate\Support\Collection $parentNodes)
+    {
+        $parentNodes->map(function ($parentNodes) use ($sortedNodes) {
+            $sortedNodes->push($parentNodes);
+        });
+        return $sortedNodes;
+    }
+
 }
