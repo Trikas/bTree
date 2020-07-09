@@ -5,9 +5,13 @@ try {
     BTreeService::destroyAllNodesMoreLevelFive();
     //получаем обьект униформ
     $uniformBTree = new UniformBTree();
+    //инитим рут узел
     $uniformBTree->InitRootNode();
+    // поднимаем метод инициализации создания дерева в нем инкапсулирован метод непосредственно создания
     $uniformBTree->initCreateUniformBTree();
+    //set уникальных id
     BTreeService::setUidNodes($uniformBTree->getBtree());
+    //save
     BTreeModel::saveNodes($uniformBTree->getBtree());
     echo 'Дерево сохранено в базу данных';
     ?><br><a href="/">Вернуться на главную</a>

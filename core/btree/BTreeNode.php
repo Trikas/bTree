@@ -28,7 +28,7 @@ class BTreeNode
      * @param int $level
      * @param $position
      */
-    public function __construct($id, $parent_id, $path = 0, $level = 0, $position)
+    public function __construct($id, $parent_id, $path , $level, $position)
     {
         $this->id = $id;
         $this->parent_id = $parent_id;

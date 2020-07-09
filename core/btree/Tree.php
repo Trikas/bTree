@@ -75,6 +75,11 @@ class Tree
 
     public function InitRootNode()
     {
-        $this->btree[] = $this->addRootNode(rand(10, 30), null);
+        if (!$rootNode = $this->getBtree()->first()) {
+            $rootNode = $this->addRootNode(rand(10, 30), null);
+            $this->btree[] = $rootNode;
+        } else {
+            $this->btree[] = $rootNode;
+        }
     }
 }
