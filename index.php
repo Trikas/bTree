@@ -1,13 +1,6 @@
 <?php
 //add autoload script
-require_once($_SERVER['DOCUMENT_ROOT'] . '/bootstrap.php');
-$dd = BTreeModel::all();
-$res = [];
-$dd->map(function ($value) use (&$res){
-    $res[$value->parent_id.$value->level][] = $value->id;
-});
-$xx = $res;
-?>
+require_once($_SERVER['DOCUMENT_ROOT'] . '/bootstrap.php'); ?>
 <h2>Условие номер #1</h2>
 <form action="/create_tree.php" method="post">
     <input type="number" name="parent_id" placeholder="Введите id родителя" required> Любое число кроме 0<br><br>

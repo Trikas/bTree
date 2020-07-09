@@ -4,7 +4,7 @@ if ($_POST['uid']) {
     try {
         $node = new PlaceNode($_POST['uid']);
         $node->startSortCollect();
-        $resultCollection = $node->getResultCollection();
+        $resultCollection = $node->getResultCollection()->sortBy('uid');
         $searchItem = $node->getUidSearch();
     } catch (Exception $exception) {
         echo $exception->getMessage();

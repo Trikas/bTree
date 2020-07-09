@@ -1,11 +1,12 @@
 <?php
 
 
-class PlaceNode
+class PlaceNode extends Tree
 {
     private $node;
     private $resultCollection;
     private $uidSearch;
+    private $parentNodes;
 
     /**
      * PlaceNode constructor.
@@ -44,11 +45,36 @@ class PlaceNode
             throw new Exception('Не найден указанный id повторите попытку!!');
         }
         $sortedNodes = $collectNodes->filter(function ($item) use ($node) {
-             if (isset($item->path_node[$node->valid_level])) {
-                 return $item->path_node[$node->valid_level] == $node->id;
-             }
+            if (isset($item->path_node[$node->valid_level])) {
+                return $item->path_node[$node->valid_level] == $node->id;
+            }
         });
-        $this->setResultCollection($sortedNodes);
+        $this->searchAllParentNode($node, $node->level, $collectNodes);
+        $this->setResultCollection($sortedNodes->merge($this->parentNodes));
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParentNode()
+    {
+        return $this->parentNodes;
+    }
+
+    private function searchAllParentNode($node, $childLevel,$collectNodes)
+    {
+        if ($node->parent_id) {
+            $parentNode = $collectNodes
+                ->where('id', $node->parent_id)
+                ->where('level', '=', $childLevel - 1)
+                ->first();
+            $this->parentNodes[] = $parentNode;
+            $this->searchAllParentNode($parentNode, $parentNode->level, $collectNodes);
+        } else {
+            $this->parentNodes[] = $node;
+        }
+
+
     }
 
     /**
@@ -82,4 +108,5 @@ class PlaceNode
     {
         $this->uidSearch = $uidSearch;
     }
+
 }
